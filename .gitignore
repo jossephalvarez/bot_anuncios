@@ -1,3 +1,11 @@
 # Project exclude paths
 /node_modules/
 /tmp/
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
