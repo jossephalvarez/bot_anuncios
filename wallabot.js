@@ -73,11 +73,19 @@ async function createAd(page) {
   // END FILE UPLOAD
 
   // SELECT BOXES
+
+  // FIRST STEP
   const categoryId = '#category';
   const categoryText = 'Moda y accesorios';
 
   await writeInputs(categoryId, categoryText);
   await page.keyboard.press('Enter');
+
+  const writeSelectBox = async (id, inputSelector, text) => {
+    await page.click(id);
+    await writeInputs(inputSelector, text);
+    await page.keyboard.press('Enter');
+  };
 
   const objectTypeId = '#objectType';
   const objectTypeText = 'Pulseras';
@@ -85,27 +93,22 @@ async function createAd(page) {
   const objectTypeInputSelector =
     '#objectType > div > tsl-dropdown-list > div > div.filter > input';
 
-  await page.click(objectTypeId);
-  await writeInputs(objectTypeInputSelector, objectTypeText);
-  await page.keyboard.press('Enter');
+  await writeSelectBox(objectTypeId, objectTypeInputSelector, objectTypeText);
 
   const genderId = '#gender';
   const genderText = 'Mujer';
   const genderInputSelector =
     '#gender > div > tsl-dropdown-list > div > div.filter > input';
 
-  await page.click(genderId);
-  await writeInputs(genderInputSelector, genderText);
-  await page.keyboard.press('Enter');
+  await writeSelectBox(genderId, genderInputSelector, genderText);
 
   const conditionId = '#conditions';
   const conditionsText = 'Sin estrenar';
   const conditionInputSelector =
     '#conditions > div > tsl-dropdown-list > div > div.filter > input';
 
-  await page.click(conditionId);
-  await writeInputs(conditionInputSelector, conditionsText);
-  await page.keyboard.press('Enter');
+  await writeSelectBox(conditionId, conditionInputSelector, conditionsText);
+
   // END SELECT BOXES
 
   const brandClass = '.keyword-suggester';
