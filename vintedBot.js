@@ -36,19 +36,11 @@ async function getVinted() {
   await page.setExtraHTTPHeaders({
     'Accept-Language': 'es',
   });
-  const url = 'https://web.wallapop.com/catalog/upload';
+  const url = "https://web.wallapop.com/catalog/upload";
   // const url2 = 'https://web.wallapop.com';
 
   await page.goto(url);
   await createAd(page);
-  // SUBMIT PRODUCT
-  /*  await page.waitForSelector('input[type=submit]');
-
-  const submitButton = await page.$('input[type=submit]');
-  if (submitButton) {
-    await Promise.all([page.waitForNavigation(), submitButton.click()]);
-  } */
-  // END SUBMIT PRODUCT
 }
 
 getVinted();
