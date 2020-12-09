@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node vintedBot.js",
+    "test": "node index.js",
     "lint": "node_modules/.bin/eslint **/*.js",
     "lint:fix": "npm run lint -- --fix"
   },
