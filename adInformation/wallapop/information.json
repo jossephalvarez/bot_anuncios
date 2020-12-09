@@ -1,17 +1,28 @@
 [
   {
-    "title": "",
-    "price": "",
-    "description": "",
-    "category": "",
-    "subCategory": "",
-    "gender": "",
-    "condition": "",
+    "title": "COLGANTE REY LEON 100%Plata Charms Colgante Disney",
+    "hashtags": "#STARWARS #CharmDisney #MickeyMouse #MinnieMouse #Charm #IPHONE #IPHONE6 #REGALODEREYES #NAVIDAD #OUTLET #LIQUIDACION #OFERTAS #ALADINO #FROZEN #MULAN",
+    "price": "0",
+    "description": "Nuevo a Estrenar Envios A toda España- 100% Plata de ley\nMuchos modelos\nAcepto Bizum, transferencia o ingreso.\nPrecios desde 10 euros.\n",
+    "category": "Moda y accesorios",
+    "subCategory": "Pulseras",
+    "gender": "Mujer",
+    "condition": "Sin estrenar",
     "images": [
-
+        "rey_leon.jpg"
     ]
   },
   {
-
+    "title": "OFERTA! COLGANTE SISTER FOR EVER 100% PLATA",
+    "hashtags": "#STARWARS #CharmDisney #MickeyMouse #MinnieMouse #Charm #IPHONE #IPHONE6 #REGALODEREYES #NAVIDAD #OUTLET #LIQUIDACION #OFERTAS #ALADINO #FROZEN #MULAN",
+    "price": "0",
+    "description": "Nuevo a Estrenar Envios A toda España- 100% Plata de ley\nMuchos modelos\nAcepto Bizum, transferencia o ingreso.\nPrecios desde 10 euros.\n",
+    "category": "Moda y accesorios",
+    "subCategory": "Pulseras",
+    "gender": "Mujer",
+    "condition": "Sin estrenar",
+    "images": [
+      "sister.jpg"
+    ]
   }
 ]
