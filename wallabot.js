@@ -3,8 +3,9 @@ const {
   shuffleArray,
   executeWriteInputs,
 } = require("./utils/funcs");
+const { uploadPicture } = require("./uploadPicture");
 
-async function createAd(page) {
+async function createAd(page, adInformation) {
   await page.evaluate(() => {
     document.querySelector('.types').firstElementChild.click();
   });
@@ -16,32 +17,15 @@ async function createAd(page) {
   };
 
   const priceId = '#price';
-  const priceText = '0';
 
   const titleAdsId = '#headline';
-  const titleText = 'Edicion ALADINO - PULSERA Y CHARMS en PLATA DE LEY';
 
   const descriptionId = '#tellUs';
-  const hashtags =
-    '#CharmDisney #MickeyMouse #MinnieMouse #Charm #IPHONE #IPHONE6 #REGALODEREYES #NAVIDAD #OUTLET #LIQUIDACION #OFERTAS #ALADINO #FROZEN #MULAN';
-  const descriptionText = `${
-    `${titleText} Nuevo a Estrenar Envios A toda España . \n` +
-    "100% Plata de ley\n" +
-    "\n" +
-    "Acepto Bizum, transferencia o ingreso.\n" +
-    "\n" +
-    "Precios desde 10 euros. \n" +
-    "\n"
-  }${hashtags}`;
 
-  /*  const descriptionText = `${
-    `${titleText}\n` +
-    'TODAS LAS TALLA ADULTO Y NIÑO -Mirar imagen para más informacion. \n' +
-    "\n"
-  }${hashtags}`; */
+  const descriptionText = `${adInformation.title} ${adInformation.description} ${adInformation.hashtags}`;
 
-  const writeTitle = async () => writeInputs(titleAdsId, titleText);
-  const writePrice = async () => writeInputs(priceId, priceText);
+  const writeTitle = async () => writeInputs(titleAdsId, adInformation.title);
+  const writePrice = async () => writeInputs(priceId, adInformation.price);
   const writeDescription = async () =>
     writeInputs(descriptionId, descriptionText);
 
@@ -55,31 +39,17 @@ async function createAd(page) {
   //  END FUNCIONALIDAD DE ALETORIEDAD
 
   // FILE UPLOAD
-  await page.waitForSelector('input[type=file]');
-
-  const inputUploadHandle = await page.$('input[type=file]');
-
-  const fileToUploadPrincipal = 'edicion_aladino.jpg';
-  const fileToUpload1 = 'image_1.jpg';
-  const fileToUpload2 = 'image_2.jpg';
-  const fileToUploadGeneral1 = 'image_general_1.jpg';
-
-  // Sets the value of the file input to fileToUpload
-  inputUploadHandle.uploadFile(fileToUploadPrincipal);
-  /* inputUploadHandle.uploadFile(fileToUpload1);
-  inputUploadHandle.uploadFile(fileToUpload2);
-  inputUploadHandle.uploadFile(fileToUploadGeneral1); */
-
+  await uploadPicture(page, adInformation.images);
   // END FILE UPLOAD
 
   // SELECT BOXES
 
   // FIRST STEP
   const categoryId = '#category';
-  const categoryText = 'Moda y accesorios';
 
-  await writeInputs(categoryId, categoryText);
+  await writeInputs(categoryId, adInformation.category);
   await page.keyboard.press('Enter');
+  // END FIRST STEP
 
   const writeSelectBox = async (id, inputSelector, text) => {
     await page.click(id);
@@ -88,26 +58,30 @@ async function createAd(page) {
   };
 
   const objectTypeId = '#objectType';
-  const objectTypeText = 'Pulseras';
-  // const objectTypeText = 'Camiseta Deporte';
   const objectTypeInputSelector =
     '#objectType > div > tsl-dropdown-list > div > div.filter > input';
 
-  await writeSelectBox(objectTypeId, objectTypeInputSelector, objectTypeText);
+  await writeSelectBox(
+    objectTypeId,
+    objectTypeInputSelector,
+    adInformation.subCategory
+  );
 
   const genderId = '#gender';
-  const genderText = 'Mujer';
   const genderInputSelector =
     '#gender > div > tsl-dropdown-list > div > div.filter > input';
 
-  await writeSelectBox(genderId, genderInputSelector, genderText);
+  await writeSelectBox(genderId, genderInputSelector, adInformation.gender);
 
   const conditionId = '#conditions';
-  const conditionsText = 'Sin estrenar';
   const conditionInputSelector =
     '#conditions > div > tsl-dropdown-list > div > div.filter > input';
 
-  await writeSelectBox(conditionId, conditionInputSelector, conditionsText);
+  await writeSelectBox(
+    conditionId,
+    conditionInputSelector,
+    adInformation.condition
+  );
 
   // END SELECT BOXES
 
@@ -119,5 +93,6 @@ async function createAd(page) {
     document.querySelector('.selector-container').firstElementChild.click();
   });
   await page.keyboard.press('Enter');
+  console.log('page.url()', page.url());
 }
 module.exports = { createAd };
