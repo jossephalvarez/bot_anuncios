@@ -25,4 +25,14 @@ async function executeWriteInputs(disorderFunctionsWriteInputs) {
     await func();
   }
 }
-module.exports = { getRandomIntBetween, shuffleArray, executeWriteInputs };
+function delay(time) {
+  return new Promise(function (resolve) {
+    setTimeout(resolve, time);
+  });
+}
+module.exports = {
+  getRandomIntBetween,
+  shuffleArray,
+  executeWriteInputs,
+  delay,
+};
