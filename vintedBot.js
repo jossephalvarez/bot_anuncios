@@ -1,5 +1,7 @@
 const puppeteer = require("puppeteer");
 const { createAd } = require("./wallabot");
+const { getRandomIntBetween, delay } = require('./utils/funcs');
+const adInformation = require('./adInformation/wallapop/information.json');
 
 async function getVinted() {
   const args = [
@@ -36,11 +38,22 @@ async function getVinted() {
   await page.setExtraHTTPHeaders({
     'Accept-Language': 'es',
   });
-  const url = "https://web.wallapop.com/catalog/upload";
-  // const url2 = 'https://web.wallapop.com';
 
-  await page.goto(url);
-  await createAd(page);
+  /*  const urlChat = 'https://web.wallapop.com/chat';
+  await page.goto(urlChat); */
+
+  console.log('FINISH');
+
+  // // TODO jalvarezv Aqui deberia haner un bucle random de poner 1 o 2 ( sin salir ) y pasandole el OBJETO que tiene que poner
+  const urlUpload = "https://web.wallapop.com/catalog/upload";
+  await page.goto(urlUpload);
+  await createAd(page, adInformation[0]);
+  await delay(getRandomIntBetween(400, 1000));
+  await page.goto(urlUpload);
+  await createAd(page, adInformation[1]);
+
+  // TODO JALVAREZ SCHEDULING CRON JOB
+  // https://levelup.gitconnected.com/building-a-scheduled-news-crawler-with-puppeteer-d02a7919bdbe
 }
 
 getVinted();
