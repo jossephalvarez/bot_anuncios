@@ -3,7 +3,7 @@ const { createAd } = require("./wallabot");
 const { getRandomIntBetween, delay } = require('./utils/funcs');
 const adInformation = require('./adInformation/wallapop/information.json');
 
-async function getVinted() {
+async function startBot() {
   const args = [
     '--no-sandbox',
     '--disable-setuid-sandbox',
@@ -49,11 +49,11 @@ async function getVinted() {
   await page.goto(urlUpload);
   await createAd(page, adInformation[0]);
   await delay(getRandomIntBetween(400, 1000));
-  await page.goto(urlUpload);
-  await createAd(page, adInformation[1]);
+  /*  await page.goto(urlUpload);
+  await createAd(page, adInformation[1]); */
 
   // TODO JALVAREZ SCHEDULING CRON JOB
   // https://levelup.gitconnected.com/building-a-scheduled-news-crawler-with-puppeteer-d02a7919bdbe
 }
 
-getVinted();
+startBot();
