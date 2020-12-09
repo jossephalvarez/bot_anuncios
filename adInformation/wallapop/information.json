@@ -9,7 +9,7 @@
     "gender": "Mujer",
     "condition": "Sin estrenar",
     "images": [
-        "rey_leon.jpg"
+        "/images/rey_leon.jpg"
     ]
   },
   {
@@ -22,7 +22,7 @@
     "gender": "Mujer",
     "condition": "Sin estrenar",
     "images": [
-      "sister.jpg"
+      "/images/sister.jpg"
     ]
   }
 ]
