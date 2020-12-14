@@ -44,16 +44,28 @@ async function startBot() {
 
   console.log('FINISH');
 
-  // // TODO jalvarezv Aqui deberia haner un bucle random de poner 1 o 2 ( sin salir ) y pasandole el OBJETO que tiene que poner
-  const urlUpload = "https://web.wallapop.com/catalog/upload";
-  await page.goto(urlUpload);
-  await createAd(page, adInformation[0]);
-  await delay(getRandomIntBetween(400, 1000));
-  /*  await page.goto(urlUpload);
-  await createAd(page, adInformation[1]); */
+  const urlUpload = 'https://web.wallapop.com/catalog/upload';
+  if (adInformation && adInformation.length > 0) {
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < adInformation.length; i++) {
+      // eslint-disable-next-line no-await-in-loop
+      await page.goto(urlUpload);
+      // eslint-disable-next-line no-await-in-loop
+      await createAd(page, adInformation[i]);
+      // eslint-disable-next-line no-await-in-loop
+      await delay(getRandomIntBetween(1000, 1500));
+    }
+  }
 
   // TODO JALVAREZ SCHEDULING CRON JOB
   // https://levelup.gitconnected.com/building-a-scheduled-news-crawler-with-puppeteer-d02a7919bdbe
+
+  // TODO IMPLEMENTAR FOREACH ASYNC
+  // https://codeburst.io/javascript-async-await-with-foreach-b6ba62bbf404
+
+  // TODO READ THIS : https://advancedweb.hu/how-to-use-async-functions-with-array-foreach-in-javascript/
+
+  // TODO MAÑANA EDITAR ANUNCIOS O EDITAR UBICACION
 }
 
 startBot();
