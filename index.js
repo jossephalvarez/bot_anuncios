@@ -24,11 +24,6 @@ async function startBot() {
     devtools: false,
   };
 
-  /* const browser = await puppeteer.launch({
-    headless: false,
-    defaultViewport: null,
-    userDataDir: "./user_data",
-  }); */
   const browser = await puppeteer.launch(options);
   const page = await browser.newPage();
   await page.setViewport({
@@ -41,8 +36,6 @@ async function startBot() {
 
   /*  const urlChat = 'https://web.wallapop.com/chat';
   await page.goto(urlChat); */
-
-  console.log('FINISH');
 
   const urlUpload = 'https://web.wallapop.com/catalog/upload';
   if (adInformation && adInformation.length > 0) {
