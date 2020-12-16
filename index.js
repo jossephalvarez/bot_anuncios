@@ -56,6 +56,22 @@ async function startBot() {
     }
   }
 
+  // MODULE REPLY CHAT
+  // Ver si esta presente #inbox-data
+  // comprobar que hay un primer hijo
+
+  // comprobar que es nuevo :( LOS NUEVOS TIENEN ESTAS 2 ELEMENTOS
+  // #inbox-data > tsl-inbox-conversation:nth-child(1) > div > div > div.item-message-row > div.item-title-message-column
+  // #inbox-data > tsl-inbox-conversation:nth-child(1) > div > div > div.item-message-row > div.unread-counter-column
+
+  // Respuesta personalizada tomando el nombre : #inbox-data > tsl-inbox-conversation:nth-child(1) > div > div > div.user-name-row
+
+  // si es nuevo entra y contesta
+  // CLICK EN :
+  // #inbox-data > tsl-inbox-conversation:nth-child(1)
+
+  // / MODULE CHAT
+
   // TODO JALVAREZ SCHEDULING CRON JOB
   // https://levelup.gitconnected.com/building-a-scheduled-news-crawler-with-puppeteer-d02a7919bdbe
 
