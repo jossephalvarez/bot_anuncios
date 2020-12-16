@@ -1,20 +1,11 @@
-const {
-  getRandomIntBetween,
-  shuffleArray,
-  executeWriteInputs,
-} = require("./utils/funcs");
-const { uploadPicture } = require("./uploadPicture");
+const { writeInputs, writeSelectBox } = require("./writter");
+const { shuffleArray, executeWriteInputs } = require('./utils/funcs');
+const { uploadPicture } = require('./uploadPicture');
 
 async function createAd(page, adInformation) {
   await page.evaluate(() => {
     document.querySelector('.types').firstElementChild.click();
   });
-
-  const writeInputs = async (id, text) => {
-    await page.waitForSelector(id);
-    await page.click(id);
-    await page.type(id, text, { delay: getRandomIntBetween(100, 200) });
-  };
 
   const priceId = '#price';
 
@@ -24,10 +15,12 @@ async function createAd(page, adInformation) {
 
   const descriptionText = `${adInformation.title} ${adInformation.description} ${adInformation.hashtags}`;
 
-  const writeTitle = async () => writeInputs(titleAdsId, adInformation.title);
-  const writePrice = async () => writeInputs(priceId, adInformation.price);
+  const writeTitle = async () =>
+    writeInputs(page, titleAdsId, adInformation.title);
+  const writePrice = async () =>
+    writeInputs(page, priceId, adInformation.price);
   const writeDescription = async () =>
-    writeInputs(descriptionId, descriptionText);
+    writeInputs(page, descriptionId, descriptionText);
 
   // FUNCIONALIDAD DE ALETORIEDAD
 
@@ -47,21 +40,16 @@ async function createAd(page, adInformation) {
   // FIRST STEP
   const categoryId = '#category';
 
-  await writeInputs(categoryId, adInformation.category);
+  await writeInputs(page, categoryId, adInformation.category);
   await page.keyboard.press('Enter');
   // END FIRST STEP
-
-  const writeSelectBox = async (id, inputSelector, text) => {
-    await page.click(id);
-    await writeInputs(inputSelector, text);
-    await page.keyboard.press('Enter');
-  };
 
   const objectTypeId = '#objectType';
   const objectTypeInputSelector =
     '#objectType > div > tsl-dropdown-list > div > div.filter > input';
 
   await writeSelectBox(
+    page,
     objectTypeId,
     objectTypeInputSelector,
     adInformation.subCategory
@@ -71,13 +59,19 @@ async function createAd(page, adInformation) {
   const genderInputSelector =
     '#gender > div > tsl-dropdown-list > div > div.filter > input';
 
-  await writeSelectBox(genderId, genderInputSelector, adInformation.gender);
+  await writeSelectBox(
+    page,
+    genderId,
+    genderInputSelector,
+    adInformation.gender
+  );
 
   const conditionId = '#conditions';
   const conditionInputSelector =
     '#conditions > div > tsl-dropdown-list > div > div.filter > input';
 
   await writeSelectBox(
+    page,
     conditionId,
     conditionInputSelector,
     adInformation.condition
@@ -87,7 +81,7 @@ async function createAd(page, adInformation) {
 
   const brandClass = '.keyword-suggester';
   const brandText = 'charm';
-  await writeInputs(brandClass, brandText);
+  await writeInputs(page, brandClass, brandText);
 
   await page.evaluate(() => {
     document.querySelector('.selector-container').firstElementChild.click();
