@@ -1,5 +1,6 @@
 const puppeteer = require("puppeteer");
 const { createAd } = require("./wallabot");
+const { changeLocation } = require("./changeLocation");
 const { getRandomIntBetween, delay } = require('./utils/funcs');
 const adInformation = require('./adInformation/wallapop/information.json');
 
@@ -34,9 +35,14 @@ async function startBot() {
     'Accept-Language': 'es',
   });
 
-  /*  const urlChat = 'https://web.wallapop.com/chat';
-  await page.goto(urlChat); */
+  const urlChat = 'https://web.wallapop.com/chat';
+  await page.goto(urlChat);
 
+  const profileURL = 'https://web.wallapop.com/profile/info';
+  await page.goto(profileURL);
+
+  await changeLocation(page);
+  await delay(getRandomIntBetween(5000, 12000));
   const urlUpload = 'https://web.wallapop.com/catalog/upload';
   if (adInformation && adInformation.length > 0) {
     // eslint-disable-next-line no-plusplus
@@ -46,7 +52,7 @@ async function startBot() {
       // eslint-disable-next-line no-await-in-loop
       await createAd(page, adInformation[i]);
       // eslint-disable-next-line no-await-in-loop
-      await delay(getRandomIntBetween(1000, 1500));
+      await delay(getRandomIntBetween(20000, 50000));
     }
   }
 
