@@ -20,9 +20,19 @@ async function changeLocation(page) {
     // eslint-disable-next-line no-await-in-loop
     await page.keyboard.press('Backspace');
   }
-  const zipCodes = ['41840', '41006', '41007', '28002'];
+  const zipCodes = [
+    '41840',
+    '41006',
+    '41007',
+    '28002',
+    '28005',
+    '41005',
+    '08003',
+    '08001',
+  ];
 
   const randomZipCode = zipCodes[Math.floor(Math.random() * zipCodes.length)];
+  console.log('...change ZIP CODE', randomZipCode);
 
   await writeInputs(page, inputLocationId, randomZipCode);
   await delay(getRandomIntBetween(500, 1000));
@@ -36,7 +46,7 @@ async function changeLocation(page) {
   await page.click(applyButtonSelector);
   await delay(getRandomIntBetween(500, 1200));
   const submitButtonSelector =
-    'body > tsl-root > tsl-profile > div > div > tsl-profile-info > tsl-profile-form > form > div:nth-child(2) > div > div:nth-child(6) > div > tsl-button > button';
+    'body > tsl-root > tsl-private > tsl-profile > div > div > tsl-profile-info > tsl-profile-form > form > div:nth-child(2) > div > div:nth-child(6) > div > tsl-button > button';
   await page.click(submitButtonSelector);
 }
 module.exports = { changeLocation };
