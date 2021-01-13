@@ -1,10 +1,12 @@
 const puppeteer = require("puppeteer");
-const { createAd } = require("./wallabot");
-const { changeLocation } = require("./changeLocation");
-const { getRandomIntBetween, delay } = require('./utils/funcs');
-const adInformation = require('./adInformation/wallapop/information.json');
+const { schedule } = require("node-schedule");
+const { CronJob } = require("cron");
+const { createAd } = require('./wallabot');
+const { changeLocation } = require('./changeLocation');
+const { getRandomIntBetween, delay } = require("./utils/funcs");
+const adInformation = require("./adInformation/wallapop/information.json");
 
-async function startBot() {
+const startBot = async () => {
   const args = [
     '--no-sandbox',
     '--disable-setuid-sandbox',
@@ -35,14 +37,17 @@ async function startBot() {
     'Accept-Language': 'es',
   });
 
-  const urlChat = 'https://web.wallapop.com/chat';
-  await page.goto(urlChat);
+  /*  const urlChat = 'https://web.wallapop.com/chat';
+  await page.goto(urlChat); */
 
   const profileURL = 'https://web.wallapop.com/profile/info';
   await page.goto(profileURL);
 
   await changeLocation(page);
-  await delay(getRandomIntBetween(5000, 12000));
+  await delay(getRandomIntBetween(20000, 50000));
+  await page.browser().close();
+
+  /*  await delay(getRandomIntBetween(5000, 12000));
   const urlUpload = 'https://web.wallapop.com/catalog/upload';
   if (adInformation && adInformation.length > 0) {
     // eslint-disable-next-line no-plusplus
@@ -54,7 +59,7 @@ async function startBot() {
       // eslint-disable-next-line no-await-in-loop
       await delay(getRandomIntBetween(20000, 50000));
     }
-  }
+  } */
 
   // MODULE REPLY CHAT
   // Ver si esta presente #inbox-data
@@ -81,6 +86,12 @@ async function startBot() {
   // TODO READ THIS : https://advancedweb.hu/how-to-use-async-functions-with-array-foreach-in-javascript/
 
   // TODO MAÑANA EDITAR ANUNCIOS O EDITAR UBICACION
-}
+};
+const job = new CronJob('*/6 * * * *', async () => {
+  console.log('...Probemos el schedule', new Date());
+  await startBot();
+});
+console.log('...Starting bot', new Date());
+job.start();
 
-startBot();
+// startBot();
